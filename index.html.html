@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="he">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>חידון שאלות אמריקאיות</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Rubik&display=swap');
+
+body {
+  font-family: 'Rubik', sans-serif;
+  background: linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%);
+  margin: 0;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  color: #333;
+}
+
+h1 {
+  font-size: 2.5em;
+  color: #fff;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+#quiz-container {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 30px;
+  border-radius: 20px;
+  max-width: 600px;
+  width: 100%;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+#quiz-container:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+}
+
+.question {
+  font-size: 1.8em;
+  margin-bottom: 20px;
+  color: #444;
+  text-align: center;
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.option {
+  background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+  border: none;
+  padding: 15px;
+  font-size: 1.2em;
+  border-radius: 12px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  transition: all 0.2s, box-shadow 0.2s;
+}
+
+.option:hover {
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  transform: translateY(-2px);
+}
+
+.option.correct {
+  background: #81c784;
+  color: #fff;
+  font-weight: bold;
+}
+
+.option.wrong {
+  background: #e57373;
+  color: #fff;
+  font-weight: bold;
+}
+
+#nextBtn {
+  margin-top: 25px;
+  padding: 15px 30px;
+  font-size: 1.2em;
+  border: none;
+  border-radius: 12px;
+  background-color: #4caf50;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+#nextBtn:hover {
+  background-color: #45a049;
+  transform: scale(1.05);
+}
+
+#result {
+  margin-top: 30px;
+  font-size: 2em;
+  color: #fff;
+  text-shadow: 1px 1px 4px rgba(0,0,0,0.3);
+  text-align: center;
+}
+</style>
+</head>
+<body>
+
+<h1><a href="https://flagdom.com/international-flags/israel-flag"><img src="https://flagdom.com/flag-resources/flag-images/international/israel/israel-flag_30x22.png" alt="Israel Flag" width="30" height="22"/></a> חידון יום ישראלי<a href="https://flagdom.com/international-flags/israel-flag"><img src="https://flagdom.com/flag-resources/flag-images/international/israel/israel-flag_30x22.png" alt="Israel Flag" width="30" height="22"/> </a> </h1> 
+
+<div id="quiz-container">
+  <div class="question" id="question">שאלה תוצג כאן</div>
+  <div class="options" id="options">
+    <!-- אפשרויות יתווספו כאן עם JavaScript -->
+  </div>
+  <button id="nextBtn" style="display:none;">המשך לשאלה הבאה</button>
+</div>
+
+<div id="result"></div>
+
+<script>
+const questions = [
+  {
+    question: "איזה הר מגיע עד לים?",
+    options: ["הכרמל", "החרמון", "התבור", "הגלבוע"],
+    correct: 0
+  },
+  {
+    question: "בישראל יש ארבע ערים גדולות וְהֵן:",
+    options: [
+      "חיפה, אשדוד, רמת גן, פתח תקווה.",
+      "ירושלים, רמת גן, תל אביב, באר שבע.",
+      "ירושלים, תל אביב, חיפה, ראשון לציון.",
+      "ירושלים, תל אביב, אילת, נהריה."
+    ],
+    correct: 2
+  },
+  {
+    question: "איזו מהערים הבאות היא עיר נמל?",
+    options: ["חיפה", "בני ברק", "פתח תקווה", "צפת"],
+    correct: 0
+  },
+  {
+    question: "מה גבול ישראל במערב?",
+    options: ["לבנון", "ירדן", "הים התיכון", "סוריה"],
+    correct: 2
+  },
+  {
+    question: "על איזה הר אפשר לעשות סקי בחורף?",
+    options: ["הכרמל", "הגלבוע", "התבור", "החרמון"],
+    correct: 3
+  },
+  {
+    question: "איזו עיר שוכנת על הגדה המזרחית של הכנרת?",
+    options: ["צפת", "טבריה", "קריית שמונה", "מטולה"],
+    correct: 1
+  },
+  {
+    question: "לחוף איזו עיר שוכנת העיר תל אביב?",
+    options: ["הים התיכון", "הים השחור", "ים המלח", "הכנרת"],
+    correct: 0
+  },
+  {
+    question: "איזו עיר מכונה 'אם המושבות'?",
+    options: ["רמת גן", "בני ברק", "ראשון לציון", "פתח תקווה"],
+    correct: 3
+  },
+  {
+    question: "בישראל יש סוגי יישובים שונים, איזה יישוב תוכל למצוא רק במדינת ישראל?",
+    options: ["עיר", "עיירה", "כפר", "קיבוץ"],
+    correct: 3
+  },
+  {
+    question: "עם איזו מדינה אין לישראל גבול?",
+    options: ["מצרים", "ירדן", "לבנון", "עיראק"],
+    correct: 3
+  },
+  {
+    question: "למה נקרא כביש הסרגל בשמו?",
+    options: [
+      "מכיוון שהוא מתחיל בצומת הסרגל",
+      "מכיוון שכשבנו אותו הוא היה הכביש היחיד בארץ שהיה ישר בלי עיקולים",
+      "מכיוון שתכנן אותו המהנדס האנגלי שנקרא סר-גל",
+      " על שם הצמח הסיגלות הצומח לאורך"
+    ],
+    correct: 1
+  },
+  {
+    question: "מֵהן 4 ערי הקודש?",
+    options: [
+      "תל אביב, אשדוד, טבריה, באר שבע",
+      "ירושלים, חברון, טבריה, צפת",
+      "ירושלים, חברון, נהריה, צפת",
+      "ירושלים, צפת, נהריה, אילת"
+    ],
+    correct: 1
+  },
+  {
+    question: "כביש מס' 90 הוא הכביש הארוך בארץ, הוא מורכב משני כבישים. מהם?",
+    options: [
+      "כביש הערבה וכביש הבקעה",
+      "כביש ירושלים, תל אביב וכביש החוף",
+      "כביש חוצה ישראל וכביש לטרון - מסמיע",
+      "כביש חוצה ישראל וכביש הסרגל"
+    ],
+    correct: 0
+  },
+  {
+    question: "איזו עיר היא בירת הנגב?",
+    options: ["אשדוד", "אשקלון", "נתיבות", "באר שבע"],
+    correct: 3
+  },
+  {
+    question: "מהיכן מגיעים רוב המים אל הכינרת?",
+    options: ["הירדן", "הים התיכון", "ים המלח", "הירקון"],
+    correct: 0
+  },
+  {
+    question: "כיצד נקראה העיר תל אביב כאשר נוסדה בשנת-1909?",
+    options: ["אחוזת בית", "אביבית", "אחוזת שרה", "יפו"],
+    correct: 0
+  },
+  {
+    question: "הר הרצל נמצא ב:",
+    options: ["באר שבע", "חיפה", "תל אביב", "ירושלים"],
+    correct: 3
+  }
+];
+
+let currentQuestionIndex = 0;
+let score = 0;
+
+const questionEl = document.getElementById('question');
+const optionsEl = document.getElementById('options');
+const nextBtn = document.getElementById('nextBtn');
+const resultEl = document.getElementById('result');
+
+function loadQuestion() {
+  const q = questions[currentQuestionIndex];
+  questionEl.textContent = q.question;
+  optionsEl.innerHTML = '';
+
+  q.options.forEach((option, index) => {
+    const btn = document.createElement('button');
+    btn.textContent = option;
+    btn.className = 'option';
+    btn.onclick = () => selectOption(index);
+    optionsEl.appendChild(btn);
+  });
+  nextBtn.style.display = 'none';
+}
+
+function selectOption(selectedIndex) {
+  const currentQ = questions[currentQuestionIndex];
+  const buttons = document.querySelectorAll('.option');
+
+  buttons.forEach((btn, index) => {
+    btn.disabled = true;
+    if (index === currentQ.correct) {
+      btn.classList.add('correct');
+    } else if (index === selectedIndex) {
+      btn.classList.add('wrong');
+    }
+  });
+
+  if (selectedIndex === currentQ.correct) {
+    score++;
+  }
+
+  nextBtn.style.display = 'block';
+}
+
+nextBtn.onclick = () => {
+  currentQuestionIndex++;
+  if (currentQuestionIndex < questions.length) {
+    loadQuestion();
+  } else {
+    showResult();
+  }
+};
+
+function showResult() {
+  document.getElementById('quiz-container').style.display = 'none';
+  resultEl.innerHTML = `הצלחת לענות על ${score} מתוך ${questions.length} שאלות!`;
+}
+loadQuestion();
+</script>
+<!-- הוסף את ספריית הקונפטי לפני סגירת ה- body -->
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
+
+<script>
+function showResult() {
+  document.getElementById('quiz-container').style.display = 'none';
+  resultEl.innerHTML = `הצלחת לענות על ${score} מתוך ${questions.length} שאלות!`;
+
+  // הפעלת אפקט הקונפטי
+  confetti({
+    particleCount: 150,
+    spread: 100,
+    origin: { y: 0.5 }
+  });
+}
+</script>
+</body>
+</html>
